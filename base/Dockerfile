@@ -32,4 +32,5 @@ RUN apt-get update && \
     ca-certificates \
     netbase \
     pkg-config && \
+    net-tools && \
     apt-get clean

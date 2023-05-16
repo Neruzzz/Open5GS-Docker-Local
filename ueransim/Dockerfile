@@ -1,5 +1,5 @@
 # Todo UERANSIM
-#TODO Figure out how to set up or commuicate with all the other services and the command/yaml on the compose for configuration
+#TODO Figure out how to set up or communicate with all the other services and the command/yaml on the compose for configuration
 
 FROM ubuntu:latest
 

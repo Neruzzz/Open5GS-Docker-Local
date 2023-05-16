@@ -10,7 +10,21 @@ version: '2.17.3'
 #Setting up the common range of ips used by all the containers (5g services and webui)
 networks:
   common_network:
+    driver: bridge
     ipam:
       driver: default
       config:
        - subnet: 192.168.0.0/24
+
+
+# Set up of all the services needed
+services:
+  amf:
+    image: registry.gitlab.bsc.es/ppc/software/open5gs/open5gs:latest
+    networks:
+      common_network:
+        ipv4_address: 192.168.0.10
+    volumes:
+      - ./open5gs/config/:/open5gs/install/etc/open5gs
+
+    command: ./open5gs/install/bin/open5gs-amfd
