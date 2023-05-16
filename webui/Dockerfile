@@ -10,3 +10,7 @@ RUN cd open5gs/webui && \
     npm ci
 
 CMD ["npm", "run", "dev"]
+
+# This changes where the webui runs (not sure that it can be seen by the mongo db from open5gs)
+# $ HOSTNAME=192.168.0.11 npm run dev
+# $ PORT=7777 npm run dev
