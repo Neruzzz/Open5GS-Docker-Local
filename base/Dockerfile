@@ -1,9 +1,10 @@
-FROM ubuntu:latest
+FROM mongo:latest
 
 RUN apt-get update && \
     apt-get upgrade -y && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends \
+    systemctl \
     python3-pip \
     python3-setuptools \
     python3-wheel \

@@ -13,11 +13,6 @@ RUN git clone https://github.com/open5gs/open5gs && \
     cd open5gs && \
     meson build --prefix=`pwd`/install && \
     ninja -C build
-# Run all the tests for Open5GS
-#    pwd && \
-#    cd build && \
-#    meson test -v
 
-# Install Open5GS
-#RUN ninja install && \
-#    cd ../
+RUN cd open5gs/build && \
+    ninja install
