@@ -1,6 +1,11 @@
 version: '2.17.3'
 
-
+# Things to do on the docker compose
+# TODO Build services
+# TODO Assign static ips to each service
+# TODO Send the yaml configurations
+# TODO Execute the command that starts the desired service inputing the -c with the desired yaml from the volume
+# TODO bash script with the ogstun configuration for the user communication
 
 #Setting up the common range of ips used by all the containers (5g services and webui)
 networks:
