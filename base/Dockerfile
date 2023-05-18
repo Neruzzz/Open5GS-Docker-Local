@@ -32,5 +32,8 @@ RUN apt-get update && \
     ca-certificates \
     netbase \
     pkg-config && \
-    net-tools && \
     apt-get clean
+
+RUN apt-get update && \
+    apt-get install net-tools -y && \
+    apt-get install curl -y

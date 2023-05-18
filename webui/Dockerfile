@@ -1,16 +1,14 @@
-ARG ROOT_CONTAINER=registry.gitlab.bsc.es/ppc/software/open5gs/open5gs
-FROM $ROOT_CONTAINER
+FROM node:19
 
-RUN apt update && \
-    apt install curl -y && \
-    curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt install nodejs -y
+RUN git clone https://github.com/open5gs/open5gs.git
 
 RUN cd open5gs/webui && \
-    npm ci
+    npm clean-install && \
+    npm run build
 
-CMD ["npm", "run", "dev"]
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait
+RUN chmod +x /wait
 
-# This changes where the webui runs (not sure that it can be seen by the mongo db from open5gs)
-# $ HOSTNAME=192.168.0.11 npm run dev
-# $ PORT=7777 npm run dev
+CMD cd open5gs/webui && /wait && npm run dev
+
+EXPOSE 3000
