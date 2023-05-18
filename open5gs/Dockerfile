@@ -16,3 +16,7 @@ RUN git clone https://github.com/open5gs/open5gs && \
 
 RUN cd open5gs/build && \
     ninja install
+
+COPY open5gs/setup.sh /
+
+RUN chmod +x setup.sh

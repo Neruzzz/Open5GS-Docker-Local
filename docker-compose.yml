@@ -3,6 +3,15 @@ version: '3'
 volumes:
   mongodb: {}
 
+#Setting up the common range of ips used by all the containers (5g services and webui)
+networks:
+  common_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+       - subnet: 192.168.0.0/24
+
 services:
   mongodb:
     image: mongo
@@ -12,7 +21,7 @@ services:
     restart: unless-stopped
     volumes:
       - mongodb:/data/db
-      - /webui/mogo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - /webui/mongo/mogo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
 
   webui:
@@ -25,4 +34,62 @@ services:
     environment:
       - DB_URI=mongodb://mongodb/open5gs
       - WAIT_HOSTS=mongodb:27017
-  
+
+  amf:
+    image: registry.gitlab.bsc.es/ppc/software/open5gs/open5gs:latest
+    networks:
+      common_network:
+        ipv4_address: 192.168.0.125
+    depends_on:
+      - mongodb
+    environment:
+      - DB_URI=mongodb://mongodb/open5gs
+      - DISPLAY=$DISPLAY
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun:/dev/net/tun"
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+    volumes:
+      - ./open5gs/config/:/open5gs/install/etc/open5gs
+    command: /bin/bash -c "
+            chmod 666 /dev/net/tun &&
+            ./setup.sh &&
+            ./open5gs/install/bin/open5gs-nrfd &&
+            sleep 2 &&
+            ./open5gs/install/bin/open5gs-scpd &&
+            sleep 2 &&
+            ./open5gs/install/bin/open5gs-amfd &
+            (tail -f /open5gs/install/var/log/open5gs/amf.log)"
+# ./install/bin/open5gs-nrfd &
+# sleep 2
+# ./install/bin/open5gs-scpd &
+# sleep 2
+# ./install/bin/open5gs-amfd &
+# sleep 2
+# ./install/bin/open5gs-smfd -c install/etc/open5gs/smf1.yaml &
+# ./install/bin/open5gs-smfd -c install/etc/open5gs/smf2.yaml &
+# ./install/bin/open5gs-ausfd &
+# ./install/bin/open5gs-udmd &
+# ./install/bin/open5gs-udrd &
+# ./install/bin/open5gs-pcfd &
+# ./install/bin/open5gs-nssfd &
+# ./install/bin/open5gs-bsfd &
+  gnb:
+    image: registry.gitlab.bsc.es/ppc/software/open5gs/ueransim:latest
+    networks:
+      common_network:
+        ipv4_address: 192.168.0.126
+    volumes:
+      - ./ueransim/config/:/UERANSIM/config
+
+    command: ./UERANSIM/build/nr-gnb -c /UERANSIM/config/open5gs-gnb.yaml
+
+  ue:
+    image: registry.gitlab.bsc.es/ppc/software/open5gs/ueransim:latest
+    volumes:
+      - ./ueransim/config/:/UERANSIM/config
+
+    command: ./UERANSIM/build/nr-ue -c /UERANSIM/config/open5gs-ue.yaml
+    
