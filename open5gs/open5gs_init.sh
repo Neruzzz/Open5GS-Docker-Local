@@ -61,7 +61,7 @@ elif [[ "$COMPONENT_NAME" =~ ^(upf-[[:digit:]]+$) ]]; then
     cd install/bin && ./open5gs-upfd
 elif [[ "$COMPONENT_NAME" =~ ^(webui) ]]; then
 	echo "Deploying component: '$COMPONENT_NAME'"
-	sleep 10 && /mnt/webui/webui_init.sh
+	sleep 10 && chmod +x /mnt/webui/webui_init.sh && /mnt/webui/webui_init.sh
 else
 	echo "Error: Invalid component name: '$COMPONENT_NAME'"
 fi

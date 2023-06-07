@@ -26,6 +26,30 @@ services:
       common_network:
         ipv4_address: ${MONGO_IP}
 
+  webui:
+    image: ${OPEN5GS_IMAGE}
+    privileged: true
+    container_name: webui
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    environment:
+      - COMPONENT_NAME=webui
+    volumes:
+      - ./webui:/mnt/webui
+    ports:
+      - "3000:3000/tcp"
+    devices:
+      - "/dev/net/tun:/dev/net/tun"
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+    networks:
+      common_network:
+        ipv4_address: ${WEBUI_IP}
+
 
 
 
