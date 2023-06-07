@@ -2,10 +2,11 @@ BASE_TAG = base-open5gs
 OPEN5GS_TAG	= open5gs
 WEBUI_TAG = webui
 UERANSIM_TAG = ueransim
+MONGO_TAG = open5gs-mongo
 
 PREFIX = registry.gitlab.bsc.es/ppc/software/open5gs/
 
-all: webui
+all: openmongo
 
 
 baseopen: 
@@ -23,3 +24,7 @@ ueransim: openfivegs
 webui: ueransim
 	docker build --progress=plain -f webui/Dockerfile -t $(PREFIX)$(WEBUI_TAG) . 
 	docker push $(PREFIX)$(WEBUI_TAG)
+
+openmongo: webui
+	docker build --progress=plain -f mongo/Dockerfile -t $(PREFIX)$(MONGO_TAG) . 
+	docker push $(PREFIX)$(MONGO_TAG)
