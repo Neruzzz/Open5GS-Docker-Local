@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # BSD 2-Clause License
 
 # Copyright (c) 2020, Supreeth Herle
@@ -24,16 +26,14 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-FROM ubuntu:focal
+export IP_ADDR=$(awk 'END{print $1}' /etc/hosts)
 
-ENV DEBIAN_FRONTEND=noninteractive
+cp /mnt/ueransim/open5gs-gnb.yaml /UERANSIM/config/open5gs-gnb.yaml
 
-RUN apt-get update && \
-    apt-get install -y wget gnupg && \
-    wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add - && \
-    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends mongodb-org && \
-    apt-get autoremove -y && apt-get autoclean
+sed -i 's|MNC|'$MNC'|g' /UERANSIM/config/open5gs-gnb.yaml
+sed -i 's|MCC|'$MCC'|g' /UERANSIM/config/open5gs-gnb.yaml
+sed -i 's|NR_GNB_IP|'$NR_GNB_IP'|g' /UERANSIM/config/open5gs-gnb.yaml
+sed -i 's|AMF_IP|'$AMF_IP'|g' /UERANSIM/config/open5gs-gnb.yaml
 
-CMD /mnt/mongo/mongo_init.sh
+# Sync docker time
+#ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
