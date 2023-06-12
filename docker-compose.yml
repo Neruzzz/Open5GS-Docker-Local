@@ -166,83 +166,83 @@ services:
     networks:
       common_network:
         ipv4_address: ${BSF_IP}
-  # nssf:
-  #   image: ${OPEN5GS_IMAGE}
-  #   depends_on:
-  #     - nrf
-  #     - scp
-  #     - mongo
-  #   container_name: nssf
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     - COMPONENT_NAME=nssf-1
-  #   volumes:
-  #     - ./open5gs/config/nssf:/mnt/nssf
-  #     - ./log:/open5gs/install/var/log/open5gs
-  #   expose:
-  #     - "7777/tcp"
-  #   networks:
-  #     common_network:
-  #       ipv4_address: ${NSSF_IP}
+  nssf:
+    image: ${OPEN5GS_IMAGE}
+    depends_on:
+      - nrf
+      - scp
+      - mongo
+    container_name: nssf
+    env_file:
+      - .env
+    environment:
+      - COMPONENT_NAME=nssf-1
+    volumes:
+      - ./open5gs/config/nssf:/mnt/nssf
+      - ./log:/open5gs/install/var/log/open5gs
+    expose:
+      - "7777/tcp"
+    networks:
+      common_network:
+        ipv4_address: ${NSSF_IP}
 
-  # smf:
-  #   image: ${OPEN5GS_IMAGE}
-  #   depends_on:
-  #     - nrf
-  #     - scp
-  #     - amf
-  #   container_name: smf
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     - COMPONENT_NAME=smf-1
-  #   volumes:
-  #     - ./open5gs/config/smf:/mnt/smf
-  #     - ./log:/open5gs/install/var/log/open5gs
-  #   expose:
-  #     - "3868/udp"
-  #     - "3868/tcp"
-  #     - "3868/sctp"
-  #     - "5868/udp"
-  #     - "5868/tcp"
-  #     - "5868/sctp"
-  #     - "8805/udp"
-  #     - "2123/udp"
-  #     - "7777/tcp"
-  #     - "9091/tcp"
-  #   networks:
-  #     common_network:
-  #       ipv4_address: ${SMF_IP}
-  # upf:
-  #   image: ${OPEN5GS_IMAGE}
-  #   depends_on:
-  #     - nrf
-  #     - scp
-  #     - smf
-  #   container_name: upf
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     - COMPONENT_NAME=upf-1
-  #   volumes:
-  #     - ./open5gs/config/upf:/mnt/upf
-  #     - ./log:/open5gs/install/var/log/open5gs
-  #   expose:
-  #     - "2152/udp"
-  #     - "8805/udp"
-  #     - "9091/tcp"
-  #   # ports:
-  #   #   - "2152:2152/udp"
-  #   cap_add:
-  #     - NET_ADMIN
-  #   privileged: true
-  #   sysctls:
-  #     - net.ipv4.ip_forward=1
-  #     #- net.ipv6.conf.all.disable_ipv6=0
-  #   networks:
-  #     common_network:
-  #       ipv4_address: ${UPF_IP}
+  smf:
+    image: ${OPEN5GS_IMAGE}
+    depends_on:
+      - nrf
+      - scp
+      - amf
+    container_name: smf
+    env_file:
+      - .env
+    environment:
+      - COMPONENT_NAME=smf-1
+    volumes:
+      - ./open5gs/config/smf:/mnt/smf
+      - ./log:/open5gs/install/var/log/open5gs
+    expose:
+      - "3868/udp"
+      - "3868/tcp"
+      - "3868/sctp"
+      - "5868/udp"
+      - "5868/tcp"
+      - "5868/sctp"
+      - "8805/udp"
+      - "2123/udp"
+      - "7777/tcp"
+      - "9091/tcp"
+    networks:
+      common_network:
+        ipv4_address: ${SMF_IP}
+  upf:
+    image: ${OPEN5GS_IMAGE}
+    depends_on:
+      - nrf
+      - scp
+      - smf
+    container_name: upf
+    env_file:
+      - .env
+    environment:
+      - COMPONENT_NAME=upf-1
+    volumes:
+      - ./open5gs/config/upf:/mnt/upf
+      - ./log:/open5gs/install/var/log/open5gs
+    expose:
+      - "2152/udp"
+      - "8805/udp"
+      - "9091/tcp"
+    # ports:
+    #   - "2152:2152/udp"
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    sysctls:
+      - net.ipv4.ip_forward=1
+      #- net.ipv6.conf.all.disable_ipv6=0
+    networks:
+      common_network:
+        ipv4_address: ${UPF_IP}
   amf:
     image: ${OPEN5GS_IMAGE}
     depends_on:
@@ -292,7 +292,7 @@ services:
       - NET_ADMIN
     privileged: true
     networks:
-      default:
+      common_network:
         ipv4_address: ${NR_GNB_IP}
 
   nr_ue:
@@ -314,7 +314,7 @@ services:
       - NET_ADMIN
     privileged: true
     networks:
-      default:
+      common_network:
         ipv4_address: ${NR_UE_IP}
 
 
