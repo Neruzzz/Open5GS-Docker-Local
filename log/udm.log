@@ -1,0 +1,27 @@
+Open5GS daemon v2.6.4-18-g3a41161
+
+06/12 12:07:03.763: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/udm.yaml' (../lib/app/ogs-init.c:126)
+06/12 12:07:03.763: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/udm.log' (../lib/app/ogs-init.c:129)
+06/12 12:07:03.765: [sbi] INFO: NF Service [nudm-ueau] (../lib/sbi/context.c:1438)
+06/12 12:07:03.765: [sbi] INFO: NF Service [nudm-uecm] (../lib/sbi/context.c:1438)
+06/12 12:07:03.765: [sbi] INFO: NF Service [nudm-sdm] (../lib/sbi/context.c:1438)
+06/12 12:07:03.765: [sbi] INFO: nghttp2_server() [http://162.22.0.13]:7777 (../lib/sbi/nghttp2-server.c:395)
+06/12 12:07:03.768: [app] INFO: UDM initialize...done (../src/udm/app.c:31)
+06/12 12:07:03.769: [sbi] INFO: [a4bb8634-0919-41ee-ada7-4f0e7c8817d8] NF registered [Heartbeat:10s] (../lib/sbi/nf-sm.c:214)
+06/12 12:07:03.770: [sbi] INFO: [a4bc447a-0919-41ee-9df4-2fa854c9d6a8] Subscription created until 2023-06-13T12:07:03.769847+00:00 [duration:86400,validity:86399.999609,patch:43199.999804] (../lib/sbi/nnrf-handler.c:509)
+06/12 12:07:04.712: [udm] ERROR: [suci-0-001-01-0000-0-0-1234567895] HTTP response error [400] (../src/udm/nudr-handler.c:88)
+06/12 12:07:13.580: [sbi] INFO: [aa94d75e-0919-41ee-b452-efe6432db59e] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+06/12 12:07:13.580: [sbi] INFO: [aa94d75e-0919-41ee-b452-efe6432db59e] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
+Open5GS daemon v2.6.4-18-g3a41161
+
+06/12 12:10:43.681: [app] INFO: Configuration: '/open5gs/install/etc/open5gs/udm.yaml' (../lib/app/ogs-init.c:126)
+06/12 12:10:43.681: [app] INFO: File Logging: '/open5gs/install/var/log/open5gs/udm.log' (../lib/app/ogs-init.c:129)
+06/12 12:10:43.682: [sbi] INFO: NF Service [nudm-ueau] (../lib/sbi/context.c:1438)
+06/12 12:10:43.682: [sbi] INFO: NF Service [nudm-uecm] (../lib/sbi/context.c:1438)
+06/12 12:10:43.682: [sbi] INFO: NF Service [nudm-sdm] (../lib/sbi/context.c:1438)
+06/12 12:10:43.683: [sbi] INFO: nghttp2_server() [http://162.22.0.13]:7777 (../lib/sbi/nghttp2-server.c:395)
+06/12 12:10:43.683: [app] INFO: UDM initialize...done (../src/udm/app.c:31)
+06/12 12:10:43.684: [sbi] INFO: [27d04a0a-091a-41ee-a75f-3f476682c7f1] NF registered [Heartbeat:10s] (../lib/sbi/nf-sm.c:214)
+06/12 12:10:43.685: [sbi] INFO: [27d0acca-091a-41ee-a257-d75bbd63d83a] Subscription created until 2023-06-13T12:10:43.685113+00:00 [duration:86400,validity:86399.999570,patch:43199.999785] (../lib/sbi/nnrf-handler.c:509)
+06/12 12:10:54.001: [sbi] INFO: [2df67076-091a-41ee-82e2-fb5c9d90c7f8] (NRF-notify) NF registered (../lib/sbi/nnrf-handler.c:725)
+06/12 12:10:54.001: [sbi] INFO: [2df67076-091a-41ee-82e2-fb5c9d90c7f8] (NRF-notify) NF Profile updated (../lib/sbi/nnrf-handler.c:735)
